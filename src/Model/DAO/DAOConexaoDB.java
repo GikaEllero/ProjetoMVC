@@ -20,7 +20,7 @@ public class DAOConexaoDB {
 
     public Connection getConexao() {
         final String DRIVER = "com.mysql.jdbc.Driver";
-        final String URL = "jdbc:mysql://localhost:3306/db_venda" 
+        final String URL = "jdbc:mysql://127.0.0.1:3306/db_venda" 
                     + "?verifyServerCertificate=true"
                     + "&useSSL=false"
                     + "&requireSSL=false"
