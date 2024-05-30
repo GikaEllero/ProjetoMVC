@@ -33,7 +33,9 @@ public class ClienteTest {
         Cliente result = cliente.getCliente(pessoa.getIdCliente());
         
         // Verificar se os dados do cliente são os esperados
-        assertEquals(pessoa, result);
+        assertEquals(pessoa.getNome(), result.getNome());
+        assertEquals(pessoa.getCPF(), ((ClientePF) result).getCPF());
+        assertEquals(pessoa.getIdentidade(), ((ClientePF) result).getIdentidade());
     }
     
     @Test
@@ -44,6 +46,8 @@ public class ClienteTest {
         Cliente result = cliente.getCliente(empresa.getIdCliente());
         
         // Verificar se os dados do cliente são os esperados
-        assertEquals(empresa, result);
+        assertEquals(empresa.getNome(), result.getNome());
+        assertEquals(empresa.getCnpj(), ((ClientePJ) result).getCnpj());
+        assertEquals(empresa.getInscricaoEstadual(), ((ClientePJ) result).getInscricaoEstadual());
     }
 }
