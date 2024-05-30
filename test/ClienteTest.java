@@ -1,4 +1,3 @@
-
 import Controller.ControllerCliente;
 import Model.Cliente;
 import Model.ClientePF;
@@ -6,12 +5,6 @@ import Model.ClientePJ;
 import java.util.Calendar;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 
 /**
  *
@@ -36,17 +29,23 @@ public class ClienteTest {
     public void persistirBancoInsertPFTest(){
         cliente.persistirBanco(pessoa, true, false, false);
         
+        // Buscar o cliente do banco para verificar se foi inserido corretamente
         Cliente result = cliente.getCliente(pessoa.getIdCliente());
         
+        // Verificar se os dados do cliente são os esperados
         assertEquals(pessoa.getNome(), result.getNome());
+        assertEquals(pessoa.getCPF(), ((ClientePF) result).getCPF());
     }
     
     @Test
     public void persistirBancoInsertPJTest(){
         cliente.persistirBanco(empresa, true, false, false);
         
+        // Buscar o cliente do banco para verificar se foi inserido corretamente
         Cliente result = cliente.getCliente(empresa.getIdCliente());
         
+        // Verificar se os dados do cliente são os esperados
         assertEquals(empresa.getNome(), result.getNome());
+        assertEquals(empresa.getCnpj(), ((ClientePJ) result).getCnpj());
     }
 }
