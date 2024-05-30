@@ -24,11 +24,14 @@ public class ClienteTest {
         pessoa = new ClientePF(5, calendar.getTime(), "Teste Pessoa", "12345678912", 123456789);
         empresa = new ClientePJ(7, calendar.getTime(), "Teste Empresa", "1223456300189", 123456789);
         cliente = new ControllerCliente();
+        
+        //Insere o cliente para garantir que ele existirá nos outros testes
+        cliente.persistirBanco(pessoa, true, false, false);
+        cliente.persistirBanco(empresa, true, false, false);
     }
     
     @Test
     public void persistirBancoInsertPFTest(){
-        cliente.persistirBanco(pessoa, true, false, false);
         
         // Buscar o cliente do banco para verificar se foi inserido corretamente
         Cliente result = cliente.getCliente(pessoa.getIdCliente());
@@ -41,8 +44,6 @@ public class ClienteTest {
     
     @Test
     public void persistirBancoInsertPJTest(){
-        cliente.persistirBanco(empresa, true, false, false);
-        
         // Buscar o cliente do banco para verificar se foi inserido corretamente
         Cliente result = cliente.getCliente(empresa.getIdCliente());
         
@@ -89,7 +90,7 @@ public class ClienteTest {
     
     @Test
     public void persistirBancoDeletePJTest(){
-        cliente.persistirBanco(empresa, false, true, false);
+        cliente.persistirBanco(empresa, false, false, true);
         
         // Buscar o cliente do banco para verificar se foi inserido corretamente
         Cliente result = cliente.getCliente(empresa.getIdCliente());

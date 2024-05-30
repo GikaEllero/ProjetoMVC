@@ -17,11 +17,11 @@ public class ProdutoTest {
     public void setUp(){
         produto = new Produto(5, "Teste Inserir", (float)6.0);
         produtoController = new ControllerProduto();
+        produtoController.persistirBanco(produto, true, false, false);
     }
     
     @Test
     public void persistirBancoInsertTest(){
-        produtoController.persistirBanco(produto, true, false, false);
         
         // Buscar o produto do banco para verificar se foi inserido corretamente
         Produto result = produtoController.getProduto(produto.getIdProduto());
