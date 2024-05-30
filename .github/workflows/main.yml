@@ -11,6 +11,20 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: senha100
+          MYSQL_DATABASE: db_venda
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
     - name: Check out repository
       uses: actions/checkout@v2
@@ -27,6 +41,13 @@ jobs:
         curl -L -o lib/junit-4.13.2.jar https://search.maven.org/remotecontent?filepath=junit/junit/4.13.2/junit-4.13.2.jar
         curl -L -o lib/hamcrest-core-1.3.jar https://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
         curl -L -o lib/mysql-connector-java-8.0.26.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.26/mysql-connector-java-8.0.26.jar
+
+    - name: Wait for MySQL
+      run: |
+        while ! mysqladmin ping -h"localhost" --silent; do
+          echo "Waiting for database connection..."
+          sleep 2
+        done
 
     - name: Compile and test
       run: |
