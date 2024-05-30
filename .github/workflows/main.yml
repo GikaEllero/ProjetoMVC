@@ -49,6 +49,10 @@ jobs:
           sleep 2
         done
 
+    - name: Set up database
+      run: |
+        mysql -h "127.0.0.1" -u root -psenha100 db_venda < Script_BD_venda.sql
+
     - name: Compile and test
       run: |
         find . -name "*.java" > sources.txt
