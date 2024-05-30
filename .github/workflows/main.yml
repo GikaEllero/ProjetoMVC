@@ -21,11 +21,17 @@ jobs:
         java-version: '8'
         distribution: 'adopt'
 
+    - name: Download JUnit and Hamcrest
+      run: |
+        mkdir -p lib
+        curl -L -o lib/junit-4.13.2.jar https://search.maven.org/remotecontent?filepath=junit/junit/4.13.2/junit-4.13.2.jar
+        curl -L -o lib/hamcrest-core-1.3.jar https://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+
     - name: Compile and test
       run: |
         find . -name "*.java" > sources.txt
         mkdir -p build/classes
-        javac -d build/classes @sources.txt
+        javac -cp "lib/*" -d build/classes @sources.txt
         java -cp "build/classes:lib/*" org.junit.runner.JUnitCore $(find build/classes -name "*Test*.class" | sed 's/build\/classes\///' | sed 's/\//./g' | sed 's/\.class//')
 
     - name: Archive test results
