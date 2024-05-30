@@ -23,8 +23,9 @@ jobs:
 
     - name: Compile and test
       run: |
+        find . -name "*.java" > sources.txt
         mkdir -p build/classes
-        javac -cp "src/main/java:src/test/java:lib/*" -d build/classes $(find src/main/java src/test/java -name "*.java")
+        javac -d build/classes @sources.txt
         java -cp "build/classes:lib/*" org.junit.runner.JUnitCore $(find build/classes -name "*Test*.class" | sed 's/build\/classes\///' | sed 's/\//./g' | sed 's/\.class//')
 
     - name: Archive test results
