@@ -19,6 +19,7 @@ public class LoginTest {
         Login teste = new Login(login, senha, nome, priv);
         Login result = loginController.validaLogin(login, senha, priv);
         
+        //Conferir se os dados de login são os esperados
         assertEquals(teste.getNome(), result.getNome());
         assertEquals(teste.getLogin(), result.getLogin());
         assertEquals(teste.getSenha(), result.getSenha());
